@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Welcome Class of 2011</title>
+
+    <!-- Google fonts for the condensed/hero look -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;600&family=Inter:wght@500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="home.css" />
+  </head>
+  <body class="is-home">
+    <!-- Top bar -->
+    <header class="site-header">
+      <nav class="side-links">
+  <a href="index.html" aria-current="page">HOME</a>
+  <a href="alumni-weekend-2025.html">ALUMNI WEEKEND 2025</a>
+  <a href="general-info.html">GENERAL INFO</a>
+  <a href="memories.html">MEMORIES</a>
+</nav>
+
+
+      <h1 class="page-title">WELCOME CLASS OF 2011</h1>
+
+      <div class="logo">
+        <img src="Assets/CE Murrary Logo.PNG" alt="War Eagles logo" />
+      </div>
+    </header>
+
+    <!-- Hero image with tinted overlay -->
+    <section class="hero">
+  <!-- Slides -->
+  <div class="hero-slides" aria-live="polite">
+    <img class="hero-slide is-active" src="Assets/First Photo.JPEG" alt="Alumni group photo 1" loading="eager">
+    <img class="hero-slide" src="Assets/Front Photo.png" alt="Alumni group photo 2" loading="lazy">
+    <img class="hero-slide" src="Assets/img1.jpg" alt="Alumni group photo 3" loading="lazy">
+    <img class="hero-slide" src="Assets/Front 2.JPG" alt="Alumni group photo 4" loading="lazy">
+  </div>
+
+  <!-- Tint overlay -->
+  <div class="hero-overlay" aria-hidden="true"></div>
+
+  <!-- Centered to page width -->
+  <div class="hero-inner page-wrap">
+    <div class="tagline">
+      <p><strong>Once a War Eagle, Always a War Eagle</strong><br>
+      2011 is home — and so are you.</p>
+    </div>
+  </div>
+</section>
+
+
+    <!-- Optional spacer to mimic the screenshot’s white area below -->
+    <div class="below-spacer"></div>
+    <script>
+  (function () {
+    const hero   = document.querySelector('.hero');
+    const slides = document.querySelectorAll('.hero-slide');
+    if (!slides.length || !hero) return;
+
+    const INTERVAL_MS = 5000;  // slide duration
+    let i = 0;
+
+    // Size hero to show the whole image with minimal letterboxing
+    function sizeHeroToSlide(img){
+      if (!img || !img.naturalWidth) return;
+      const imgW = img.naturalWidth, imgH = img.naturalHeight;
+      const heroW = hero.clientWidth;
+
+      // ideal height for this image at current width
+      let idealH = heroW * (imgH / imgW);
+
+      // clamp so it never gets awkwardly tall/short
+      const maxH = Math.min(window.innerHeight * 0.72, 620); // matches your old cap
+      const minH = 360;                                      // tweak if you want
+      idealH = Math.max(minH, Math.min(idealH, maxH));
+
+      hero.style.height = idealH + 'px';
+    }
+
+    // Ensure we can size as soon as images are ready
+    function ensureNaturalSizesReady(cb){
+      let pending = slides.length;
+      slides.forEach(img => {
+        if (img.complete && img.naturalWidth) {
+          pending--;
+        } else {
+          img.addEventListener('load', () => {
+            pending--;
+            if (pending === 0) cb();
+          }, { once:true });
+        }
+      });
+      if (pending === 0) cb();
+    }
+
+    function startShow(){
+      // show first & size
+      slides[i].classList.add('is-active');
+      sizeHeroToSlide(slides[i]);
+
+      // cycle
+      setInterval(() => {
+        slides[i].classList.remove('is-active');
+        i = (i + 1) % slides.length;
+        slides[i].classList.add('is-active');
+        sizeHeroToSlide(slides[i]);
+      }, INTERVAL_MS);
+
+      // resize handling
+      window.addEventListener('resize', () => sizeHeroToSlide(slides[i]));
+      window.addEventListener('orientationchange', () => sizeHeroToSlide(slides[i]));
+    }
+
+    ensureNaturalSizesReady(startShow);
+  })();
+</script>
+
+  </body>
+</html>
