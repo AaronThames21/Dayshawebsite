@@ -1,0 +1,168 @@
+/* ---------- Theme ---------- */
+:root{
+  --maroon: #8c1f2f;
+  --gold:   #f2c14e;
+  --ink:    #151515;
+  --white:  #ffffff;
+  --page-max: 1100px; /* shared centered width */
+}
+
+/* ---------- Reset ---------- */
+*{ box-sizing:border-box; margin:0; padding:0; }
+img{ max-width:100%; display:block; }
+
+/* ---------- Base ---------- */
+html, body{ height:100%; }
+body{
+  font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  color: var(--ink);
+  background: var(--white);
+  line-height: 1.6;
+}
+
+/* Reusable centered wrapper */
+.page-wrap{
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 24px);
+}
+
+/* ---------- Header ---------- */
+.site-header{
+  display: grid;
+  grid-template-columns: 220px 1fr 150px;   /* left menu / center title / right logo */
+  align-items: center;
+  gap: 1rem;
+  padding-block: 20px;
+  /* center the header contents to page width */
+  max-width: var(--page-max);
+  margin-inline: auto;
+  padding-inline: clamp(16px, 4vw, 24px);
+  background: var(--white);
+  position: relative;
+  z-index: 10;
+}
+
+/* Left vertical menu */
+.side-links{
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.side-links a{
+  font-family: Oswald, Arial, sans-serif;
+  font-size: 14px;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  text-decoration: none;
+  color: var(--maroon);
+}
+.side-links a[aria-current="page"]{
+  font-weight: 700;
+}
+
+/* Big center title */
+.page-title{
+  font-family: Anton, Impact, Oswald, sans-serif;
+  color: var(--maroon);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  font-size: clamp(28px, 6vw, 64px);
+  line-height: 1;
+}
+
+/* Right logo */
+.logo{ justify-self: end; }
+.logo img{ height: 76px; width: auto; }
+
+/* ---------- Hero (slideshow) ---------- */
+.hero{
+  position: relative;
+  height: min(72vh, 620px);
+  overflow: hidden;
+  background: #000; /* fallback while images load */
+}
+.hero-slides{
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.hero-slide{
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+  opacity: 0;
+  transition: opacity 900ms ease-in-out;
+  will-change: opacity;
+}
+.hero-slide.is-active{ opacity: 1; }
+
+/* Tint overlay */
+.hero-overlay{
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+/* Center hero content to page width */
+.hero-inner{
+  position: relative;
+  z-index: 2;  /* above overlay */
+  height: 100%;
+}
+
+/* Tagline aligned to centered page width */
+.tagline{
+  position: absolute;
+  left: 0;
+  right: 0;
+  margin-inline: auto;
+  bottom: 20px;
+  background: var(--maroon);
+  color: #fff;
+  border: 3px solid var(--gold);
+  padding: 18px 28px;
+  width: min(780px, calc(100% - 64px)); /* respects page padding */
+  text-align: center;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* White space below like your mock */
+.is-home .below-spacer{ display: none; }
+
+/* ---------- Responsive tweaks ---------- */
+@media (max-width: 900px){
+  .site-header{
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "title"
+      "menu"
+      "logo";
+    justify-items: center;
+    text-align: center;
+    row-gap: 12px;
+  }
+  .page-title{ grid-area: title; }
+  .side-links{
+    grid-area: menu;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+    justify-content: center;
+  }
+  .logo{ grid-area: logo; justify-self: center; }
+}
+
+@media (max-width: 520px){
+  .tagline{ bottom: 70px; padding: 14px 18px; border-width: 5px; }
+}
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .hero-slide{ transition: none; }
+}
