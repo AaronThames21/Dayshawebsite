@@ -16,12 +16,11 @@
     <!-- Top bar -->
     <header class="site-header">
       <nav class="side-links">
-  <a href="index.html" aria-current="page">HOME</a>
-  <a href="alumni-weekend-2025.html">ALUMNI WEEKEND 2025</a>
-  <a href="general-info.html">GENERAL INFO</a>
-  <a href="memories.html">MEMORIES</a>
-</nav>
-
+        <a href="index.html" aria-current="page">HOME</a>
+        <a href="alumni-weekend-2025.html">ALUMNI WEEKEND 2025</a>
+        <a href="general-info.html">GENERAL INFO</a>
+        <a href="memories.html">MEMORIES</a>
+      </nav>
 
       <h1 class="page-title">WELCOME CLASS OF 2011</h1>
 
@@ -32,87 +31,126 @@
 
     <!-- Hero image with tinted overlay -->
     <section class="hero">
-  <!-- Slides -->
-  <div class="hero-slides" aria-live="polite">
-    <img class="hero-slide is-active" src="Assets/First Photo.JPEG" alt="Alumni group photo 1" loading="eager">
-    <img class="hero-slide" src="Assets/Front Photo.png" alt="Alumni group photo 2" loading="lazy">
-    <img class="hero-slide" src="Assets/IMG_1578.JPEG" alt="Alumni group photo 3" loading="lazy">
-    <img class="hero-slide" src="Assets/Front 2.JPGPG" alt="Alumni group photo 4" loading="lazy">
-  </div>
+      <!-- Slides -->
+      <div class="hero-slides" aria-live="polite">
+        <img
+          class="hero-slide is-active"
+          src="Assets/First Photo.JPEG"
+          alt="Alumni group photo 1"
+          loading="eager"
+        />
+        <img
+          class="hero-slide"
+          src="Assets/Front Photo.png"
+          alt="Alumni group photo 2"
+          loading="lazy"
+        />
+        <img
+          class="hero-slide"
+          src="Assets/IMG_1578.JPEG"
+          alt="Alumni group photo 3"
+          loading="lazy"
+        />
+        <img
+          class="hero-slide"
+          src="Assets/Class photo-4.jpg"
+          alt="Alumni group photo 4"
+          loading="lazy"
+        />
+      </div>
 
-  <!-- Tint overlay -->
-  <div class="hero-overlay" aria-hidden="true"></div>
+      <!-- Tint overlay -->
+      <div class="hero-overlay" aria-hidden="true"></div>
 
-  <!-- Centered to page width -->
-  <div class="hero-inner page-wrap">
-    <div class="tagline">
-      <p><strong>Once a War Eagle, Always a War Eagle</strong><br>
-      2011 is home — and so are you.</p>
-    </div>
-  </div>
-</section>
-
+      <!-- Centered to page width -->
+      <div class="hero-inner page-wrap">
+        <div class="tagline">
+          <p>
+            <strong>Once a War Eagle, Always a War Eagle</strong><br />
+            2011 is home — and so are you.
+          </p>
+        </div>
+      </div>
+    </section>
 
     <!-- Optional spacer to mimic the screenshot’s white area below -->
     <div class="below-spacer"></div>
-  <script>
-  (function () {
-    const hero   = document.querySelector('.hero');
-    const slides = Array.from(document.querySelectorAll('.hero-slide'));
-    if (!slides.length || !hero) return;
+    <script>
+      (function () {
+        const hero = document.querySelector(".hero");
+        const slides = Array.from(document.querySelectorAll(".hero-slide"));
+        if (!slides.length || !hero) return;
 
-    const INTERVAL_MS = 5000;
-    let i = 0, started = false;
+        const INTERVAL_MS = 5000;
+        let i = 0,
+          started = false;
 
-    function sizeHeroToSlide(img){
-      if (!img || !img.naturalWidth) return;
-      const imgW = img.naturalWidth, imgH = img.naturalHeight;
-      const heroW = hero.clientWidth;
-      let idealH = heroW * (imgH / imgW);
-      const maxH = Math.min(window.innerHeight * 0.72, 620);
-      const minH = 360;
-      idealH = Math.max(minH, Math.min(idealH, maxH));
-      hero.style.height = idealH + 'px';
-    }
+        function sizeHeroToSlide(img) {
+          if (!img || !img.naturalWidth) return;
+          const imgW = img.naturalWidth,
+            imgH = img.naturalHeight;
+          const heroW = hero.clientWidth;
+          let idealH = heroW * (imgH / imgW);
+          const maxH = Math.min(window.innerHeight * 0.72, 620);
+          const minH = 360;
+          idealH = Math.max(minH, Math.min(idealH, maxH));
+          hero.style.height = idealH + "px";
+        }
 
-    function startShow(){
-      if (started) return;
-      started = true;
-      slides[i].classList.add('is-active');   // show current
-      sizeHeroToSlide(slides[i]);
+        function startShow() {
+          if (started) return;
+          started = true;
+          slides[i].classList.add("is-active"); // show current
+          sizeHeroToSlide(slides[i]);
 
-      setInterval(() => {
-        slides[i].classList.remove('is-active');
-        i = (i + 1) % slides.length;
-        slides[i].classList.add('is-active');
-        sizeHeroToSlide(slides[i]);
-      }, INTERVAL_MS);
+          setInterval(() => {
+            slides[i].classList.remove("is-active");
+            i = (i + 1) % slides.length;
+            slides[i].classList.add("is-active");
+            sizeHeroToSlide(slides[i]);
+          }, INTERVAL_MS);
 
-      addEventListener('resize', () => sizeHeroToSlide(slides[i]));
-      addEventListener('orientationchange', () => sizeHeroToSlide(slides[i]));
-    }
+          addEventListener("resize", () => sizeHeroToSlide(slides[i]));
+          addEventListener("orientationchange", () =>
+            sizeHeroToSlide(slides[i])
+          );
+        }
 
-    // Kick off as soon as ANY image is ready, but don't block on failures
-    let pending = slides.length;
-    slides.forEach(img => {
-      const done = () => { if (--pending <= 0 && !started) startShow(); };
-      if (img.complete && img.naturalWidth) {
-        // good image already cached
-        if (!started) startShow(); // start immediately on first good one
-        done();
-      } else {
-        img.addEventListener('load', () => {
+        // Kick off as soon as ANY image is ready, but don't block on failures
+        let pending = slides.length;
+        slides.forEach((img) => {
+          const done = () => {
+            if (--pending <= 0 && !started) startShow();
+          };
+          if (img.complete && img.naturalWidth) {
+            // good image already cached
+            if (!started) startShow(); // start immediately on first good one
+            done();
+          } else {
+            img.addEventListener(
+              "load",
+              () => {
+                if (!started) startShow();
+                done();
+              },
+              { once: true }
+            );
+            img.addEventListener(
+              "error",
+              () => {
+                console.warn("Slideshow image failed to load:", img.src);
+                done(); // don't block the show on a bad image
+              },
+              { once: true }
+            );
+          }
+        });
+
+        // Absolute fallback in case everything is cached weirdly
+        setTimeout(() => {
           if (!started) startShow();
-          done();
-        }, { once:true });
-        img.addEventListener('error', () => {
-          console.warn('Slideshow image failed to load:', img.src);
-          done(); // don't block the show on a bad image
-        }, { once:true });
-      }
-    });
-
-    // Absolute fallback in case everything is cached weirdly
-    setTimeout(() => { if (!started) startShow(); }, 1500);
-  })();
-</script>
+        }, 1500);
+      })();
+    </script>
+  </body>
+</html>
