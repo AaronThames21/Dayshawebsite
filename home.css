@@ -163,7 +163,12 @@ body{
   }
   .logo{ grid-area: logo; justify-self: center; }
 }
-
+@media (max-width: 520px) {
+  .hero {
+    height: 50vh; /* shorter hero for mobile */
+    min-height: 300px;
+  }
+}
 @media (max-width: 520px) {
   .hero-inner {
     padding-bottom: 10px; /* less space below */
