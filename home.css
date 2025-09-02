@@ -83,23 +83,24 @@ body{
   overflow: hidden;
   background: #000; /* fallback while images load */
 }
-.hero-slides{
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-}
-.hero-slide{
-  position: absolute;
-  inset: 0;
+.hero-slides {
+  position: relative;
   width: 100%;
   height: 100%;
-  object-fit: contain;
-  object-position: center;
-  opacity: 0;
-  transition: opacity 900ms ease-in-out;
-  will-change: opacity;
+  overflow: hidden;
 }
-.hero-slide.is-active{ opacity: 1; }
+
+.hero-slide {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* fills the container, crops edges if needed */
+  object-position: center;
+  display: none;
+}
+
+.hero-slide.is-active {
+  display: block;
+}
 
 /* Tint overlay */
 .hero-overlay{
