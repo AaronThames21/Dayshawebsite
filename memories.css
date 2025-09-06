@@ -51,7 +51,7 @@
   border: 3px solid var(--gold);
   background: #000;
   overflow: hidden;
-  border-radius: 10px;
+  border-radius: 0px;
   box-shadow: 0 6px 18px rgba(0,0,0,0.12);
   transition: transform .2s ease, box-shadow .2s ease;
 }
@@ -75,6 +75,41 @@
   /* If you prefer natural image heights (masonry feel),
      comment out the 3 lines above and see the note below. */
 }
+/* Center the button beneath the gallery */
+.gallery-cta{
+  display: grid;
+  place-items: center;
+  margin-top: 16px;            /* space above button */
+  margin-bottom: 24px;         /* little breathing room below */
+}
+
+/* Button base (matches your maroon/gold/ink palette) */
+.btn{
+  display: inline-block;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+  font-weight: 700;
+  text-decoration: none;
+  line-height: 1;
+  padding: 12px 18px;
+  border-radius: 0px;
+  border: 3px solid var(--ink, #151515);
+  transition: transform .12s ease, filter .2s ease;
+}
+
+/* Gold variant for strong CTA */
+.btn-gold{
+  background: var(--gold, #f2c14e);
+  border-color: var(--gold, #f2c14e);
+  color: var(--ink, #151515);
+}
+.btn-gold:hover{ transform: translateY(-1px); filter: brightness(.95); }
+.btn-gold:focus-visible{ outline: 3px solid rgba(242,193,78,.55); outline-offset: 2px; }
+
+/* (Optional) make it full-width on very small phones */
+@media (max-width: 420px){
+  .gallery-cta .btn{ width: 100%; text-align: center; }
+}
+
 
 /* Caption-on-hover option (disabled by default) */
 /*
